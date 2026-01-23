@@ -1,0 +1,11 @@
+# SQLite database
+ev_charging.db
+
+# Raw data
+data/raw/
+
+# VS Code settings
+.vscode/
+
+# Mac system files
+.DS_Store
