@@ -41,10 +41,12 @@ SELECT
     pr_evs_per_1000,
     pr_density,
 
-    -- equal-weight composite (transparent + defensible)
-    ROUND((pr_evs_per_1000 + pr_density) / 2.0, 4) AS pilot_score,
+    -- equal-weight composite
+    ROUND((pr_evs_per_1000 + pr_density) / 2.0, 4) AS pilot_score_equal,
 
-    -- simple quadrant labels for interpretation
+    -- density-weighted composite (60% density, 40% EV intensity)
+    ROUND((pr_density * 0.6 + pr_evs_per_1000 * 0.4), 4) AS pilot_score_density_weighted,
+
     CASE
         WHEN pr_evs_per_1000 >= 0.75 AND pr_density >= 0.75 THEN 'High EV, High density (prime pilots)'
         WHEN pr_evs_per_1000 >= 0.75 AND pr_density < 0.75 THEN 'High EV, lower density (driveway-heavy risk)'
