@@ -1,7 +1,9 @@
-# SQLite database
-ev_charging.db
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
 
-# Raw data
+# Raw data (not tracked in repo)
 data/raw/
 
 # VS Code settings
