@@ -115,6 +115,8 @@ These assumptions are reasonable for **comparative prioritisation**, but results
 
 ## Key output
 
+![UTLA pilot prioritisation chart](docs/figures/utla_pilot_prioritisation_chart.png)
+
 The primary analytical output is a ranked list of **UK Upper Tier Local Authorities (UTLAs)** for EV charging pilot deployment.
 
 The ranking is based on:
@@ -122,7 +124,6 @@ The ranking is based on:
 - EV adoption intensity (`evs_per_1000_people`)
 - Population density (`population_density_per_km2`)
 - Composite pilot scores (`pilot_score_equal` and `pilot_score_density_weighted`)
-![UTLA pilot prioritisation chart](docs/figures/utla_pilot_prioritisation_chart.png)
 
 ---
 
