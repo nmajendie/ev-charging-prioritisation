@@ -19,7 +19,7 @@ The analysis focuses on **near-term pilots (12–18 months)**, where capital, de
 - [Executive brief](docs/executive_brief.md)
 - [Strategy memo](docs/strategy_memo.md)
 
-Final output dataset: `data/processed/utla_pilot_ranking.csv`
+Final output dataset: [utla_pilot_ranking.csv](data/processed/utla_pilot_ranking.csv)
 
 ---
 
@@ -115,9 +115,9 @@ These assumptions are reasonable for **comparative prioritisation**, but results
 
 ## Key output
 
-![UTLA pilot prioritisation chart](docs/figures/utla_pilot_prioritisation_chart.png)
-
 The primary analytical output is a ranked list of **UK Upper Tier Local Authorities (UTLAs)** for EV charging pilot deployment.
+
+![UTLA pilot prioritisation chart](docs/figures/utla_pilot_prioritisation_chart.png)
 
 The ranking is based on:
 
@@ -138,17 +138,25 @@ The ranking is based on:
 
 ## Repository structure
 
+## Repository structure
+
 ```text
 ev-charging-prioritisation/
 
 README.md
 
 sql/        # SQL pipeline for cleaning, aggregation, and ranking
-docs/       # Executive brief and strategy memo
+
+docs/       # Project documentation
+  executive_brief.md
+  strategy_memo.md
+  figures/
+      utla_pilot_prioritisation_chart.png
 
 data/
   raw/      # Raw datasets (not tracked in repository)
-  processed/ # Final analytical outputs
+  processed/
+      utla_pilot_ranking.csv
 ```
 
 ---
