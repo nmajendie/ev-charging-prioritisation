@@ -1,4 +1,8 @@
-# EV Charging Pilot Prioritisation for UK Local Authorities
+# Data-Driven Prioritisation of UK EV Charging Pilot Markets
+
+*A data-driven framework for prioritising UK EV charging pilot markets using publicly available datasets.*
+
+---
 
 ## Overview
 
@@ -10,27 +14,35 @@ The analysis focuses on **near-term pilots (12–18 months)**, where capital, de
 
 ---
 
+## Project write-up
+
+- [Executive brief](docs/executive_brief.md)
+- [Strategy memo](docs/strategy_memo.md)
+
+Final output dataset: `data/processed/utla_pilot_ranking.csv`
+
+---
+
 ## Decision question
 
-**Which UK local authorities should be prioritised for EV charging pilot deployments, given demand pressure, deployability constraints, and commercial viability?**
+**Which UK local authorities should be prioritised for EV charging pilot deployments, given demand pressure and deployability constraints?**
 
 ---
 
 ## Analytical approach
 
-Local authorities are assessed across three dimensions:
+Local authorities are assessed across two core dimensions:
 
-### 1. Demand pressure
-- EV adoption levels  
-- EVs per public charger as a proxy for unmet demand  
+### 1. Demand intensity
 
-### 2. Deployability
-- Population density  
-- Housing stock composition (on-street vs off-street charging need)  
+- EV adoption levels
+- EVs per 1,000 residents
 
-### 3. Commercial & strategic viability
-- Income or deprivation proxies  
-- Authority size and similarity to others (replicability)  
+### 2. Deployability constraints
+
+- Population density (people per km²), used as a proxy for limited private parking and greater reliance on public charging infrastructure
+
+These metrics are aggregated to **Upper Tier Local Authority (UTLA)** level and combined into a transparent prioritisation score.
 
 The emphasis is on **decision support**, not predictive modelling or technical optimisation.
 
@@ -40,11 +52,9 @@ The emphasis is on **decision support**, not predictive modelling or technical o
 
 This project uses publicly available UK datasets, including:
 
-- ONS local authority lookup and population estimates  
-- DVLA electric vehicle registrations by local authority  
-- National Chargepoint Registry (public charging infrastructure)  
-- ONS dwelling stock by housing type  
-- ONS Gross Disposable Household Income or Index of Multiple Deprivation  
+- ONS local authority lookup and population estimates
+- DVLA electric vehicle registrations by local authority
+- ONS Standard Area Measurements (land area)
 
 Raw data is **not included** in this repository. Sources, snapshot dates, and download links are documented separately.
 
@@ -57,10 +67,11 @@ Raw data is **not included** in this repository. Sources, snapshot dates, and do
 This project aggregates data to **Upper Tier Local Authority (UTLA)** level, which is the relevant geography for transport and infrastructure responsibilities in England.
 
 UTLAs include:
-- County councils  
-- Metropolitan boroughs  
-- London boroughs  
-- Unitary authorities  
+
+- County councils
+- Metropolitan boroughs
+- London boroughs
+- Unitary authorities
 
 As of 2025, there are **153 UTLAs in England**.
 
@@ -70,10 +81,11 @@ As of 2025, there are **153 UTLAs in England**.
 
 Several source datasets are provided at **Lower Tier Local Authority (LAD)** level. These are aggregated to UTLAs using an official LAD–UTLA lookup table.
 
-**Important implications:**
-- County UTLAs (e.g. Kent, Essex) aggregate multiple LADs  
-- Unitary authorities and metropolitan boroughs typically map 1:1  
-- LAD counts per UTLA therefore vary substantially  
+Important implications:
+
+- County UTLAs (e.g. Kent, Essex) aggregate multiple LADs
+- Unitary authorities and metropolitan boroughs typically map 1:1
+- LAD counts per UTLA therefore vary substantially
 
 This explains why some UTLAs appear multiple times in intermediate tables prior to aggregation.
 
@@ -81,9 +93,10 @@ This explains why some UTLAs appear multiple times in intermediate tables prior 
 
 ### Known caveats
 
-- Boundary changes and reclassifications mean historical datasets may not align perfectly with current UTLA definitions  
-- Population totals are derived by summing LAD populations and may differ slightly from published UTLA headline figures  
+- Boundary changes and reclassifications mean historical datasets may not align perfectly with current UTLA definitions
+- Population totals are derived by summing LAD populations and may differ slightly from published UTLA headline figures
 - All analysis assumes **static 2025 UTLA boundaries**
+- Two UTLAs are absent from the final analytical dataset due to missing population data in the source LAD-level population dataset used for aggregation. As a result, the final ranking includes **151 UTLAs** rather than the full set of 153.
 
 These assumptions are reasonable for **comparative prioritisation**, but results should not be interpreted as official statistics.
 
@@ -91,42 +104,56 @@ These assumptions are reasonable for **comparative prioritisation**, but results
 
 ## Methodology
 
-1. Clean and standardise datasets at local authority level using SQL  
-2. Join datasets into a single analytical table  
-3. Create simple, interpretable metrics and proxies  
-4. Segment local authorities into archetypes  
-5. Rank candidates using a transparent scoring framework  
-6. Stress-test results using qualitative reasoning  
+1. Clean and standardise datasets at local authority level using SQL
+2. Aggregate LAD-level data to UTLA geography
+3. Construct interpretable demand and deployability metrics
+4. Combine metrics into a transparent scoring framework
+5. Rank local authorities for pilot deployment suitability
+6. Stress-test results using alternative weighting assumptions
 
 ---
 
-## Outputs
+## Key output
 
-- A prioritised shortlist of UK local authorities suitable for pilot deployments  
-- Clear rationale for inclusion and exclusion decisions  
-- Local authority archetypes to support replication strategy  
-- A short strategy memo outlining implications for rollout and execution  
+The primary analytical output is a ranked list of **UK Upper Tier Local Authorities (UTLAs)** for EV charging pilot deployment.
+
+The ranking is based on:
+
+- EV adoption intensity (`evs_per_1000_people`)
+- Population density (`population_density_per_km2`)
+- Composite pilot scores (`pilot_score_equal` and `pilot_score_density_weighted`)
+
+---
+
+## Reproducing the analysis
+
+1. Download the raw datasets listed in the **Data sources** section.
+2. Import them into a SQLite database (e.g. using **DB Browser for SQLite**).
+3. Run the SQL scripts in the `sql/` folder in numerical order.
+4. Review the final ranking in the `utla_pilot_ranking` view.
 
 ---
 
 ## Repository structure
-├── README.md
-├── sql/ # SQL scripts for cleaning and joining data
-├── notebooks/ # Exploratory analysis and visualisation
-├── data/
-│ ├── raw/ # Raw data (not tracked)
-│ └── processed/ # Cleaned, derived datasets
 
+```text
+ev-charging-prioritisation/
+
+README.md
+
+sql/        # SQL pipeline for cleaning, aggregation, and ranking
+docs/       # Executive brief and strategy memo
+
+data/
+  raw/      # Raw datasets (not tracked in repository)
+  processed/ # Final analytical outputs
 
 ---
 
-## Notes
+## Repository structure
 
-This project is designed to mirror how **strategy and operations analyses** are conducted in early-stage technology companies, particularly in regulated and infrastructure-heavy sectors.
+This project is designed to mirror how strategy and operations analyses are conducted in early-stage technology companies, particularly in regulated and infrastructure-heavy sectors.
 
----
+** Status
 
-## Status
-
-In progress.
-
+Completed analytical prototype. Further extensions could incorporate housing stock or parking data to refine deployability estimates.
