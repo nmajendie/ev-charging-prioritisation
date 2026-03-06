@@ -122,6 +122,7 @@ The ranking is based on:
 - EV adoption intensity (`evs_per_1000_people`)
 - Population density (`population_density_per_km2`)
 - Composite pilot scores (`pilot_score_equal` and `pilot_score_density_weighted`)
+![UTLA pilot prioritisation chart](docs/figures/utla_pilot_prioritisation_chart.png)
 
 ---
 
@@ -147,13 +148,14 @@ docs/       # Executive brief and strategy memo
 data/
   raw/      # Raw datasets (not tracked in repository)
   processed/ # Final analytical outputs
+```
 
 ---
 
-## Repository structure
+## Notes
 
 This project is designed to mirror how strategy and operations analyses are conducted in early-stage technology companies, particularly in regulated and infrastructure-heavy sectors.
 
-** Status
+## Status
 
 Completed analytical prototype. Further extensions could incorporate housing stock or parking data to refine deployability estimates.
