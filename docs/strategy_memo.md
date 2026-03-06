@@ -1,6 +1,9 @@
-**EV Charging Pilot Market Prioritisation — Strategy Memo**
-**Author:** Nick Majendie
-**Date:** March 2026
+# EV Charging Pilot Market Prioritisation — Strategy Memo
+
+**Author:** Nick Majendie  
+**Date:** March 2026  
+
+*A strategic assessment of early pilot markets for public EV charging infrastructure in England.*
 
 ---
 
