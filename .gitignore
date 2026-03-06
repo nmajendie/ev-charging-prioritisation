@@ -11,3 +11,6 @@ data/raw/
 
 # Mac system files
 .DS_Store
+
+# Temporary Excel file
+~$*.xlsx
