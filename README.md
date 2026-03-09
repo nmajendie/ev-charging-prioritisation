@@ -138,8 +138,6 @@ The ranking is based on:
 
 ## Repository structure
 
-## Repository structure
-
 ```text
 ev-charging-prioritisation/
 
